@@ -5,10 +5,17 @@ const user = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
 const database = process.env.DB_NAME;
 
-const connectToDB = mysql.createConnection({ host, port, user, password, database });
+/* const connectToDB = mysql.createConnection({ host, port, user, password, database });
 connectToDB.connect((err) => {
     if (err) throw err;
     console.log('Connected Successfully!!');
+}) */
+
+const pool = mysql.createPool({ connectionLimit: 4, host, port, user, password, database });
+pool.getConnection((err, connection) => {
+    if (err) throw err;
+    console.log('Connected Successfully!!');
+    connection.release();
 })
 
-module.exports = connectToDB;
+module.exports = pool;
