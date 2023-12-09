@@ -9,7 +9,6 @@ const connectToDB = mysql.createConnection({ host, port, user, password, databas
 connectToDB.connect((err) => {
     if (err) throw err;
     console.log('Connected Successfully!!');
-    connectToDB.destroy();
 })
 
 module.exports = connectToDB;
